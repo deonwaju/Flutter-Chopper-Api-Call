@@ -1,10 +1,25 @@
 # flutter_app_chopper
 
-A new Flutter application.
+A new Flutter application, using chopper http client to make api calls on flutter
 
 ## Getting Started
+Add this dependencies in your pubspec.yaml
 
-This project is a starting point for a Flutter application.
+#dependencies:
+  flutter:
+    sdk: flutter
+  chopper: ^2.4.0
+  provider: ^3.0.0+1
+
+...
+
+#dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  chopper_generator: ^2.3.4
+  No version number means the latest version
+  build_runner:
+
 
 A few resources to get you started if this is your first Flutter project:
 
