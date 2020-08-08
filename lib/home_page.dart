@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:chopper/chopper.dart';
-import 'package:flutter_app_chopper/data/post_api_service.dart';
-import 'data/post_api_service.dart';
-import 'package:provider/provider.dart';
 import 'dart:convert';
 
-import 'single_post_page.dart';
+import 'package:chopper/chopper.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_app_chopper/data/post_api_service.dart';
+import 'package:provider/provider.dart';
 
-//void main() => runApp(HomePage());
+import 'data/post_api_service.dart';
+import 'single_post_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -19,26 +18,29 @@ class HomePage extends StatelessWidget {
       body: _buildBody(context),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          onPressed: () async{
-            final response = await Provider.of<PostApiService>(context).postPost({'key': 'value'});
+          onPressed: () async {
+//            this is how the
+            final response = await Provider.of<PostApiService>(context)
+                .postPost({'key': 'value'});
             print(response.body);
-
-      }),
-
+          }),
     );
   }
 }
 
- FutureBuilder<Response> _buildBody(BuildContext context) {
+FutureBuilder<Response> _buildBody(BuildContext context) {
+// FutureBuilder can be used easily for building UI when awaiting a Future Response is the type currently returned by all the methods of PostApiService
 
-  return FutureBuilder<Response> (
+  return FutureBuilder<Response>(
     future: Provider.of<PostApiService>(context).getPosts(),
     builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.done) {
+// display a list of data when page loads completely and successfully
         final List posts = json.decode(snapshot.data.bodyString);
         return _buildPosts(context, posts);
-      }  else {
+      } else {
         return Center(
+// used to initialize a loading icon or indicator while post is loading
           child: CircularProgressIndicator(),
         );
       }
@@ -48,7 +50,6 @@ class HomePage extends StatelessWidget {
 
 ListView _buildPosts(BuildContext context, List posts) {
   return ListView.builder(
-
     itemCount: posts.length,
     padding: EdgeInsets.all(8),
     itemBuilder: (context, index) {
@@ -57,22 +58,22 @@ ListView _buildPosts(BuildContext context, List posts) {
         child: ListTile(
           title: Text(
             posts[index]['title'],
-            style: TextStyle(
-              fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
           subtitle: Text(posts[index]['body']),
+//          call the navigation method
           onTap: () => _navigateToPost(context, posts[index]['id']),
         ),
       );
     },
-
   );
 }
 
+//          method for navigating to the next page
 void _navigateToPost(BuildContext context, int id) {
   Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => SinglePostPage(postId: id),
-      ),
+    MaterialPageRoute(
+      builder: (context) => SinglePostPage(postId: id),
+    ),
   );
 }
