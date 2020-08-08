@@ -25,6 +25,9 @@ dependencies:
     sdk: flutter
   chopper: ^2.4.1
   provider: ^3.0.0+1
+  connectivity: ^0.4.3+2
+  built_value: ^6.7.0
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -35,6 +38,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   chopper_generator: ^2.3.4
+  built_value_generator: ^6.7.0
   build_runner:
 
 # For information on the generic Dart part of this file, see the

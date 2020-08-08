@@ -35,6 +35,16 @@ FutureBuilder<Response> _buildBody(BuildContext context) {
     future: Provider.of<PostApiService>(context).getPosts(),
     builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.done) {
+// handles the error in a user friendly string
+        if (snapshot.hasError) {
+          return Center(
+            child: Text(
+              snapshot.error.toString(),
+              textAlign: TextAlign.center,
+              textScaleFactor: 1.3,
+            ),
+          );
+        }
 // display a list of data when page loads completely and successfully
         final List posts = json.decode(snapshot.data.bodyString);
         return _buildPosts(context, posts);

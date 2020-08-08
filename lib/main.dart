@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_chopper/data/post_api_service.dart';
 import 'package:flutter_app_chopper/home_page.dart';
+import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  _setupLogging();
+  runApp(MyApp());
+}
+
+void _setupLogging() {
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((event) {
+    print('${event.level.name}: ${event.time}: ${event.message}');
+  });
+}
 
 class MyApp extends StatelessWidget {
   @override
